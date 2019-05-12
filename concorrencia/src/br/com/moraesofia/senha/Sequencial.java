@@ -1,6 +1,10 @@
 package br.com.moraesofia.senha;
 
-public class Main {
+import java.util.Arrays;
+
+import javax.xml.bind.DatatypeConverter;
+
+public class Sequencial {
 
     private static int PASSWORD_SIZE = 5;
 
@@ -17,9 +21,6 @@ public class Main {
     public static void main(String[] args) {
         long inicio, fim;
 
-        // char[] alphabetCharArray = alphabetString.toCharArray();
-        // char[] novaSenhaChar = new char[PASSWORD_SIZE];
-
         byte[] alphabetByteArray = alphabetString.getBytes();
 
         /**
@@ -27,7 +28,7 @@ public class Main {
          */
         inicio = System.currentTimeMillis();
 
-        descobreSenha(alphabetByteArray, HASH_1);
+        descobreSenha(alphabetByteArray, DatatypeConverter.parseHexBinary(HASH_1));
 
         fim = System.currentTimeMillis();
         tempoTotal += (fim - inicio);
@@ -39,7 +40,7 @@ public class Main {
          */
         inicio = System.currentTimeMillis();
 
-        descobreSenha(alphabetByteArray, HASH_2);
+        descobreSenha(alphabetByteArray, DatatypeConverter.parseHexBinary(HASH_2));
 
         fim = System.currentTimeMillis();
         tempoTotal += (fim - inicio);
@@ -51,7 +52,7 @@ public class Main {
          */
         inicio = System.currentTimeMillis();
 
-        descobreSenha(alphabetByteArray, HASH_3);
+        descobreSenha(alphabetByteArray, DatatypeConverter.parseHexBinary(HASH_3));
 
         fim = System.currentTimeMillis();
         tempoTotal += (fim - inicio);
@@ -63,9 +64,9 @@ public class Main {
 
     }
 
-    public static void descobreSenha(byte[] alphabetByteArray, String hashOriginal) {
+    public static void descobreSenha(byte[] alphabetByteArray, byte[] hashOriginal) {
         byte[] novaSenhaByte = new byte[PASSWORD_SIZE];
-        String hashNovaSenha = null;
+        byte[] hashNovaSenha = null;
         String senha = "";
 
         laco: for (byte b1 : alphabetByteArray) {
@@ -80,9 +81,9 @@ public class Main {
                             novaSenhaByte[4] = b5;
 
                             senha = new String(novaSenhaByte);
-                            hashNovaSenha = Utilitario.md5(senha);
+                            hashNovaSenha = Utilitario.md5(novaSenhaByte);
 
-                            if (hashNovaSenha.equals(hashOriginal)) {
+                            if (Arrays.equals(hashNovaSenha, hashOriginal)) {
                                 System.out.println(senha);
                                 break laco;
                             }
@@ -92,28 +93,6 @@ public class Main {
                 }
             }
         }
-        // return senha;
     }
 
-    // public static String shuffleString(String string) {
-    // List<String> letters = Arrays.asList(string.split(""));
-    // Collections.shuffle(letters);
-    // String shuffled = "";
-    // for (String letter : letters) {
-    // shuffled += letter;
-    // }
-    // return shuffled;
-    // }
-
-    // for (char c1 : alphabetCharArray) {
-    // for (char c2 : alphabetCharArray) {
-    // for (char c3 : alphabetCharArray) {
-    // for (char c4 : alphabetCharArray) {
-    // for (char c5 : alphabetCharArray) {
-    //
-    // }
-    // }
-    // }
-    // }
-    // }
 }
