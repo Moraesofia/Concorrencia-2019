@@ -6,14 +6,6 @@ public class Mailbox {
 
     synchronized void storeMessage(String m) {
 
-        if (message != null) {
-            return;
-        }
-
-        message = m;
-        System.out.println("Escrevendo mensagem: " + message);
-        notifyAll();
-
         while (message != null) {
             try {
                 wait();
@@ -21,17 +13,14 @@ public class Mailbox {
                 e.printStackTrace();
             }
         }
+
+        message = m;
+        System.out.println(Thread.currentThread().getName() + "*** escrevendo mensagem: " + message);
+        notifyAll();
+
     }
 
     synchronized String retrieveMessage() {
-
-        if (message == null) {
-            return null;
-        }
-
-        System.out.println("Obtendo mensagem: " + message);
-        message = null;
-        notifyAll();
 
         while (message == null) {
             try {
@@ -40,6 +29,11 @@ public class Mailbox {
                 e.printStackTrace();
             }
         }
+
+        System.out.println(Thread.currentThread().getName() + "*** obtendo mensagem: " + message);
+        message = null;
+        notifyAll();
+
         return message;
     }
 
