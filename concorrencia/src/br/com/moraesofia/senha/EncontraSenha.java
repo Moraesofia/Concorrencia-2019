@@ -59,7 +59,7 @@ public class EncontraSenha implements Runnable {
                 }
             }
         }
-        Thread.currentThread().getThreadGroup().stop();
+        Thread.currentThread().getThreadGroup().interrupt();
         // Fim do metodo "run"
     }
 
