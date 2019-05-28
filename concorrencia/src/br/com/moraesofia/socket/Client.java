@@ -3,37 +3,39 @@ package br.com.moraesofia.socket;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
-import java.io.PrintStream;
 
 public class Client {
 
+    private static Socket server;
+    private static Scanner ouvirServidor;
+
     public static void main(String[] args) throws IOException {
 
-        Socket servidor = new Socket("192.168.40.247", 19980);
+        server = new Socket("localhost", 12345);
 
-        Scanner ler = new Scanner(System.in);
-        System.out.println("Digite a marca de um carro");
-        String carro = ler.nextLine();
-
-        PrintStream saidaServidor = new PrintStream(servidor.getOutputStream());
-        Scanner ouvirServidor = new Scanner(servidor.getInputStream());
-
-        saidaServidor.println(carro);
-        String resposta = ouvirServidor.nextLine();
-
-        System.out.println(resposta);
-
-    }
-
-    public static void client() throws IOException {
-        
-        Socket server = new Socket("192.168.40.247", 12345);
-
-        Scanner ouvirServidor = new Scanner(server.getInputStream());
+        ouvirServidor = new Scanner(server.getInputStream());
 
         String texto = ouvirServidor.nextLine();
 
         System.out.println(texto);
+
     }
+
+    // public static void client() throws IOException {
+    //
+    // servidor = new Socket("192.168.40.247", 19980);
+    //
+    // ler = new Scanner(System.in);
+    // System.out.println("Digite a marca de um carro");
+    // String carro = ler.nextLine();
+    //
+    // PrintStream saidaServidor = new PrintStream(servidor.getOutputStream());
+    // ouvirServidor = new Scanner(servidor.getInputStream());
+    //
+    // saidaServidor.println(carro);
+    // String resposta = ouvirServidor.nextLine();
+    //
+    // System.out.println(resposta);
+    // }
 
 }

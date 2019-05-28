@@ -7,9 +7,11 @@ import java.net.Socket;
 
 public class Server {
 
+    private static ServerSocket server;
+
     public static void main(String[] args) throws IOException {
 
-        ServerSocket server = new ServerSocket(12345);
+        server = new ServerSocket(12345);
         Socket client = server.accept();
 
         String message = "A massage";
