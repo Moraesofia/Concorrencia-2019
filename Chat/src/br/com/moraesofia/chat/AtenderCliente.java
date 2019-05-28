@@ -38,7 +38,7 @@ public class AtenderCliente extends Thread {
             String mensagem = null;
             saidaCliente.println("Digite seu nome: ");
             this.nome = mensagem = ouvirCliente.nextLine();
-            saidaCliente.println("Bem vindo " + nome + "!");
+            saidaCliente.println("-> Bem vindo " + nome + "! (digite \"sair\" para deixar o chat)");
             saidas.add(saidaCliente);
             mensagem = nome + " entrou no chat";
             send(saidaCliente, mensagem);
@@ -47,7 +47,6 @@ public class AtenderCliente extends Thread {
                 mensagem = null;
                 mensagem = ouvirCliente.nextLine();
 
-                // TODO exception quando um cliente sai
                 if ("sair".equalsIgnoreCase(mensagem)) {
                     send(saidaCliente, nome + "deixou o chat");
                     saidas.remove(saidaCliente);
@@ -59,7 +58,7 @@ public class AtenderCliente extends Thread {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            send(null, "#" + nome + " deixou o chat #");
         }
     }
 

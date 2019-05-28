@@ -28,19 +28,19 @@ public class Cliente {
             @Override
             public void run() {
                 while (true) {
-                    String texto = ler.nextLine();
-                    PrintStream saidaServidor;
+                    
                     try {
+                        String texto = ler.nextLine();
+                    PrintStream saidaServidor;
                         saidaServidor = new PrintStream(servidor.getOutputStream());
                         saidaServidor.println(texto);
                         if (texto.equalsIgnoreCase("sair")) {
-                            System.err.println("Você daixou o chat");
+                            System.err.println("Você deixou o chat");
                             group.interrupt();
                             System.exit(0);
                         }
                     } catch (IOException e) {
-                        System.out.println("aqui");
-                        e.printStackTrace();
+                        System.err.println("Não foi possível conectar-se");
                     }
 
                 }
@@ -60,7 +60,7 @@ public class Cliente {
                         String resposta = ouvirServidor.nextLine();
                         System.out.println(resposta);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.err.println("Não foi possível conectar-se");
                     }
 
                 }
